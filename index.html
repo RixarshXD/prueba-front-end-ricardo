@@ -6,9 +6,37 @@
     <title>Document</title>
     <script type="module" src="assets/js/script.js"></script>
     <script type="module" src="assets/js/promesas.js"></script>
+    <link rel="stylesheet" href="assets/styles/styles.css">
 </head>
-<body>
+<body id="colorFondo">
+    <button id="btnColor">Cambiar color</button>
 
-    
+   
+    <!-- creo el formulario -->
+    <h1 id="fuenteh1">Formulario</h1>
+    <input type="text" placeholder="modelo" id="modelo"><br>
+    <input type="number" placeholder="cuerdas" id="cuerdas"><br>
+    <input type="text" placeholder="trastes" id="trastes"><br>
+    <input type="text" placeholder="puente" id="puente"><br>
+    <input type="text" placeholder="color" id="color"><br>
+
+    <!-- seleccion de pastillas -->
+    <label>Microfonos</label><br>
+    <select name="microfonos" id="microfonos">
+        <option value="pasivos">Pasivos</option>
+        <option value="activos">Activos</option>
+    </select>
+
+    <label>detalles</label><br>
+    <input type="checkbox" checked="" value="falla" id="checboxFalla">falla de sonido<br>
+    <input type="checkbox" checked="" value="desteñida" id="checboxDesteñida">guitarra desteñida<br>
+    <input type="checkbox" checked="" value="daños" id="checboxDaños">daños<br>
+
+    <textarea id="textarea" placeholder="comentario (opcional)" style="height: 60px;"></textarea><br>   
+
+    <button id="btnEnviar">Enviar</button>
+
+
 </body>
 </html>
+
