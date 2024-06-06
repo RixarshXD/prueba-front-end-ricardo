@@ -6,17 +6,30 @@ window.addEventListener('load',()=>{
     // document.getElementById('').addEventListener('click',);
 });
 
+// funcion para cambiar color de la pagina
 const cambiarColor = ()=>{
-    // funcion para cambiar el color de la pagina
-    const boton = document.getElementById('colorFondo');
-    boton.style.backgroundColor = 'rgb(114, 118, 119)';
-    // boton.style.color
+    // obtengo el id de mi html
+    let body = document.getElementById('colorFondo');
+    // obtengo el id de mi archivo css para poder hacerle cambios 
+    let fuente = document.getElementById('fuenteh1');
 
-    // funcion para cambiar el tamaño de la fuente
-    const fuente = document.getElementById('fuenteh1');
+    // ahora valido los colores 
+    if (body.style.backgroundColor === 'rgb(114, 118, 119)') {
+        body.style.backgroundColor = '#222'; 
+        fuente.style.color = 'white'
+
+    } else {
+        body.style.backgroundColor = 'rgb(114, 118, 119)'; 
+        fuente.style.color = 'black';
+    };
+
+    // le cambio la fuente al <h1> de mi html
     fuente.style.fontSize = '50px';
-    fuente.style.color = 'black';
-}
+};
+
+
+
+
 
 // registrar una guitarra
 const registroGuitarra = ()=>{
@@ -39,9 +52,6 @@ const registroGuitarra = ()=>{
     let vPuente = ePuente.value;
     let vColor = eColor.value;
     let vMicrofonos = eMicrofonos.value;
-    let vFalla = eFalla.value;
-    let vDesteñida = eDesteñida.value;
-    let vDaños = eDaños.value;
     let vComentarios = eComentarios.value;
 
     // ahora ingreso todo a un diccionario para llevarlo a la base de datos
@@ -53,15 +63,27 @@ const registroGuitarra = ()=>{
         puente:vPuente,
         color:vColor,
         microfonos:vMicrofonos,
-        falla:vFalla,
-        desteñida:vDesteñida,
-        daños:vDaños,
         comentarios:vComentarios,
     };
+
+    // verifico si los checked estan marcados para ingresarlos a mi base de datos
+    // los checkbox marcados los voy añadiendo a la variable objeto para que vayan a la base de datos 
+    if (eFalla.checked) {
+        objeto.falla = eFalla.value;
+    }
+    if (eDesteñida.checked) {
+        objeto.desteñida = eDesteñida.value;
+    }
+    if (eDaños.checked) {
+        objeto.daños = eDaños.value;
+    };
+    // llamo a la funcion de las promesas para realizar el registro en la base de datos
     registrarGuitarra(objeto).then(()=>{
         alert('se ha registrado')
+
+        // hago el alert para decirle al usuario que se registró con exito
     }).catch((e)=>{
+        // en caso de algun error muestro el error en la consola
         console.log(e)
     });
-
 };
