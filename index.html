@@ -32,10 +32,54 @@
     <input type="checkbox" value="desteñida" id="checboxDesteñida">guitarra desteñida<br>
     <input type="checkbox" value="daños" id="checboxDaños">daños<br>
 
-    <textarea id="textarea" placeholder="comentario (opcional)" style="height: 60px;"></textarea><br>   
+    <textarea id="textarea" placeholder="comentario (opcional)"></textarea><br>   
 
-    <button id="btnEnviar">Enviar</button>
+    <button id="btnEnviar">Registrar Guitarra</button>
 
+
+<table id="tGuitarras">
+    <thead>
+        <tr>
+            <th>modelo</th>
+            <th>Cuerdas</th>
+            <th>Trastes</th>
+            <th>Puente</th>
+            <th>Color</th>
+            <th>Micrófonos</th>
+            <th>Falla</th>
+            <th>Desteñida</th>
+            <th>Daños</th>
+            <th>Comentarios</th>
+
+            <th>Actualizar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody id="tbGuitarras"></tbody>
+</table>
+
+<h1>Actualizar</h1>
+<input type="text" placeholder="modelo" id="UPDmodelo"><br>
+<input type="number" placeholder="cuerdas" id="UPDcuerdas"><br>
+<input type="text" placeholder="trastes" id="UPDtrastes"><br>
+<input type="text" placeholder="puente" id="UPDpuente"><br>
+<input type="text" placeholder="color" id="UPDcolor"><br>
+
+<!-- seleccion de pastillas -->
+<label>Microfonos</label><br>
+<select name="microfonos" id="UPDmicrofonos">
+    <option value="pasivos">Pasivos</option>
+    <option value="activos">Activos</option>
+</select>
+
+<label>detalles</label><br>
+<input type="checkbox" value="falla" id="UPDchecboxFalla">falla de sonido<br>
+<input type="checkbox" value="desteñida" id="UPDchecboxDesteñida">guitarra desteñida<br>
+<input type="checkbox" value="daños" id="UPDchecboxDaños">daños<br>
+
+<textarea id="UPDtextarea" placeholder="comentario (opcional)"></textarea><br>   
+
+<button id="btnActualizar">Actualizar</button>
 
 </body>
 </html>

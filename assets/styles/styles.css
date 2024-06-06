@@ -5,10 +5,46 @@
 body{
     background-color: #222;
     color: white;
+    margin: 0%;
+    padding: 20px;
 }
 
 
 #fuenteh1{
     font-size: 40px;
+    text-align: center;
+}
+table{
+    width: 100%;
+    margin-bottom: 20px;
 }
 
+th, td{
+    border: solid;
+    padding: 1px;
+}
+
+th {
+    background-color: rgb(75, 74, 74);
+}
+
+button {
+    padding: 2px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+
+    /* el cursor es para que cuando el mouse pase por encima del boton cambie el puntero */
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* el hover es para que cuando el puntero pase por encima del boton cambie de color */
+button:hover {
+    background-color: #0056b3;
+}
+
+textarea{
+    height: 80px;
+    width: 200px;
+}
