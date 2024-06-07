@@ -10,12 +10,14 @@ window.addEventListener('load',()=>{
 
 // funcion para cambiar color de la pagina
 const cambiarColor = ()=>{
-    // obtengo el id de mi html
+
+    // obtengo el id "colorFondo" de mi HTML
     let body = document.getElementById('colorFondo');
+
     // obtengo el id de mi archivo css para poder hacerle cambios 
     let fuente = document.getElementById('fuenteh1');
 
-    // ahora valido los colores 
+    // aqui valido los colores para poder cambiarlos 
     if (body.style.backgroundColor === 'rgb(114, 118, 119)') {
         body.style.backgroundColor = '#222'; 
         fuente.style.color = 'white'
@@ -29,28 +31,62 @@ const cambiarColor = ()=>{
     fuente.style.fontSize = '50px';
 };
 
+// esta funcion valida los campos vacios y cambia el color del borde a rojo y manda una alerta 
+const validarDatos = (vModelo, vCuerdas, vPuente) => {
+    let seleccionado = true;
 
+    // verifico si el vModelo está vacio 
+    if (!vModelo) {
+        // si está vacio le cambio el estilo al borde a rojo
+        document.getElementById('modelo').style.border = '2px solid red';
+        seleccionado = false;
+    } else {
+        // si no está vacio le quita el color del borde
+        document.getElementById('modelo').style.border = '';
+    }
 
+    // verifico si vCuerdas está vacio
+    if (!vCuerdas) {
+         // si está vacio le cambio el estilo al borde a rojo
+        document.getElementById('cuerdas').style.border = '2px solid red';
+        seleccionado = false;
+    } else {
+        // si no está vacio le quita el color del borde
+        document.getElementById('cuerdas').style.border = '';
+    }
 
+    // verifico si vPuente está vacio 
+    if (!vPuente) {
+         // si está vacio le cambio el estilo al borde a rojo
+        document.getElementById('puente').style.border = '2px solid red';
+        seleccionado = false;
+    } else {
+        // si no está vacio le quita el color del borde
+        document.getElementById('puente').style.border = '';
+    }
 
+    if (!seleccionado) {
+        alert('Los campos en rojo son obligatorios.');
+    }
+    return seleccionado
+};
 
-
-
-// registrar una guitarra
+// esta funcion registra un elemento 
 const registroGuitarra = ()=>{
-    // recupero el elemento 
+
+    // en esta seccion recupero los elementos 
     let eModelo = document.getElementById('modelo');
     let eCuerdas = document.getElementById('cuerdas');
     let eTrastes = document.getElementById('trastes');
     let ePuente = document.getElementById('puente');
     let eColor = document.getElementById('color');
     let eMicrofonos = document.getElementById('microfonos');
+    let eComentarios = document.getElementById('textarea');
     let eFalla = document.getElementById('checboxFalla');
     let eDesteñida = document.getElementById('checboxDesteñida');
-    let eDaños = document.getElementById('checboxDaños');
-    let eComentarios = document.getElementById('textarea')
+    let eDaño = document.getElementById('checboxDaños');
 
-    // ahora recupero el valor de los elementos
+    // teniendo los elementos ahora les doy un valor
     let vModelo = eModelo.value;
     let vCuerdas = eCuerdas.value;
     let vTrastes = eTrastes.value;
@@ -59,9 +95,22 @@ const registroGuitarra = ()=>{
     let vMicrofonos = eMicrofonos.value;
     let vComentarios = eComentarios.value;
 
-    // ahora ingreso todo a un diccionario para llevarlo a la base de datos
+    // recupero los checkbox y valido si estan marcados
+    let cFalla = eFalla.checked;
+    let cDesteñida = eDesteñida.checked;
+    let cDaño = eDaño.checked;
 
+
+    // aqui valido los datos campos modelo, cuerdas y puente
+    if (!validarDatos(vModelo, vCuerdas, vPuente)) {
+        // aqui detengo el registro si falta algun dato
+        return;
+    }
+
+    // ahora ingreso todo a un diccionario para llevarlo a la base de datos
     let objeto = {
+
+        // aqui ingresan los inputs
         modelo:vModelo,
         cuerdas:vCuerdas,
         trastes:vTrastes,
@@ -69,25 +118,17 @@ const registroGuitarra = ()=>{
         color:vColor,
         microfonos:vMicrofonos,
         comentarios:vComentarios,
-    };
 
-    // verifico si los checked estan marcados para ingresarlos a mi base de datos
-    // los checkbox marcados los voy añadiendo a la variable objeto para que vayan a la base de datos 
-    if (eFalla.checked) {
-        objeto.falla = eFalla.value;
-    }
-    if (eDesteñida.checked) {
-        objeto.desteñida = eDesteñida.value;
-    }
-    if (eDaños.checked) {
-        objeto.daños = eDaños.value;
+        // aqui ingresan los checkbox
+        falla:cFalla,
+        desteñida:cDesteñida,
+        daños:cDaño,
     };
 
     // llamo a la funcion de las promesas para realizar el registro en la base de datos
     registrarGuitarra(objeto).then(()=>{
-        alert('se ha registrado')
+        alert('se ha registrado una guitarra.')
         recuperarDatos(); // recupero los datos para ingresarlos a la tabla (la actualizo)
-
         // hago el alert para decirle al usuario que se registró con exito
     }).catch((error)=>{
         // en caso de algun error muestro el error en la consola
@@ -96,15 +137,21 @@ const registroGuitarra = ()=>{
 };
 
 
+
+
+
 // actualizar guitarras
 const actualizaGuitarra = () => {
-    let eModelo = document.getElementById('modelo');
-    let eCuerdas = document.getElementById('cuerdas');
-    let eTrastes = document.getElementById('trastes');
-    let ePuente = document.getElementById('puente');
-    let eColor = document.getElementById('color');
-    let eMicrofonos = document.getElementById('microfonos');
-    let eComentarios = document.getElementById('textarea')
+    let eModelo = document.getElementById('UPDmodelo');
+    let eCuerdas = document.getElementById('UPDcuerdas');
+    let eTrastes = document.getElementById('UPDtrastes');
+    let ePuente = document.getElementById('UPDpuente');
+    let eColor = document.getElementById('UPDcolor');
+    let eMicrofonos = document.getElementById('UPDmicrofonos');
+    let eFalla = document.getElementById('UPDchecboxFalla');
+    let eDesteñida = document.getElementById('UPDchecboxDesteñida');
+    let eDaño = document.getElementById('UPDchecboxDaños');
+    let eComentarios = document.getElementById('UPDtextarea');
 
     // ahora recupero el valor de los elementos
     let vModelo = eModelo.value;
@@ -113,10 +160,16 @@ const actualizaGuitarra = () => {
     let vPuente = ePuente.value;
     let vColor = eColor.value;
     let vMicrofonos = eMicrofonos.value;
+    let cFalla = eFalla.checked;
+    let cDesteñida = eDesteñida.checked;
+    let cDaño = eDaño.checked;
     let vComentarios = eComentarios.value;
 
+ 
     // ahora ingreso todo a un diccionario para llevarlo a la base de datos
     let objeto = {
+
+        // aqui ingresan los inputs
         modelo:vModelo,
         cuerdas:vCuerdas,
         trastes:vTrastes,
@@ -124,6 +177,11 @@ const actualizaGuitarra = () => {
         color:vColor,
         microfonos:vMicrofonos,
         comentarios:vComentarios,
+
+        // aqui ingresan los checkbox
+        falla:cFalla,
+        desteñida:cDesteñida,
+        daños:cDaño,
     };
 
     let id = document.getElementById('btnActualizar').value;
@@ -150,9 +208,12 @@ const recuperarDatos = () => {
             estructura += '<td>'+g.puente+'</td>';
             estructura += '<td>'+g.color+'</td>';
             estructura += '<td>'+g.microfonos+'</td>';
-            estructura += '<td>'+g.falla+'</td>';
-            estructura += '<td>'+g.desteñida+'</td>';
-            estructura += '<td>'+g.daños+'</td>';
+
+            // operador ternario si el elemento retorna true me da "si" y si retorna false retorna "no"
+            estructura += '<td>' + (g.falla ? 'si' : 'no') + '</td>';
+            estructura += '<td>' + (g.desteñida ? 'si' : 'no') + '</td>';
+            estructura += '<td>' + (g.daños ? 'si' : 'no') + '</td>'
+
             estructura += '<td>'+g.comentarios+'</td>';
 
             // genero botones de actualizar y eliminar para los registros en la tabla 
@@ -160,8 +221,10 @@ const recuperarDatos = () => {
             estructura += '<td><button id="DEL'+g.id+'">Eliminar</button></td>';
             estructura += '</tr>';
         });
+
         // muestro la estructura en la consola
         console.log(estructura);
+
         // inserto la estructura en el html
         document.getElementById('tbGuitarras').innerHTML = estructura
         guitarra.forEach((g) => {
@@ -174,10 +237,11 @@ const recuperarDatos = () => {
                 document.getElementById('UPDpuente').value = g.puente;
                 document.getElementById('UPDcolor').value = g.color;
                 document.getElementById('UPDmicrofonos').value = g.microfonos;
-                document.getElementById('UPDchecboxFalla').value = g.falla;
-                document.getElementById('UPDchecboxDesteñida').value = g.desteñida;
-                document.getElementById('UPDchecboxDaños').value = g.daños;
-                document.getElementById('UPDcomentarios').value = g.comentarios;
+                document.getElementById('UPDchecboxFalla').checked = g.falla;
+                document.getElementById('UPDchecboxDesteñida').checked = g.desteñida;
+                document.getElementById('UPDchecboxDaños').checked = g.daños;
+                document.getElementById('UPDtextarea').value = g.comentarios;
+                document.getElementById('btnActualizar').value = g.id;
             });
             let eliminarElemento = document.getElementById('DEL'+g.id);
             eliminarElemento.addEventListener('click', () => {
